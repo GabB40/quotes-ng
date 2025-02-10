@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CitationService } from './citation.service';
+import { Citation } from './citation.interface';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +10,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'plop';
+  private citationService = inject(CitationService);
+  citation = this.citationService.citation
+  title = this.citationService.citation;
+
+  ngOnInit() {
+    this.citationService.getRandomCitations().subscribe();
+  }
 }
