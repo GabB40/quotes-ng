@@ -42,5 +42,5 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY}}
           SOURCE: "dist/citations/"
           REMOTE_HOST: "13.38.94.90"
-          REMOTE_USER: "ubuntu"
+          REMOTE_USER: "ec2-user"
           TARGET: "/var/www/html/citations/"
