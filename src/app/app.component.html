@@ -1,9 +1,8 @@
-{{title().q}}
-{{title().a}}
-{{title().h}}
-
-<div class="container">
-  <blockquote class="quote">« {{title().q}} »</blockquote>
-  <p class="author">- {{title().a}}</p>
+<div class="main">
+  <div class="container">
+    <blockquote class="quote">« {{ citation().q }} »</blockquote>
+    <p class="author">- {{ citation().a }}</p>
+  </div>
+  <!-- <button class="btn" (click)="nextCitation()">Next Proverb</button> -->
 </div>
 <router-outlet/>

@@ -19,7 +19,10 @@ export class CitationService {
 
   getRandomCitations(): Observable<Citation[]> {
     return this.http.get<Citation[]>(this.url).pipe(
-      tap(citations => this.citation.set(citations[0]))
+      tap(citations => {
+        console.log("citations", citations)
+        this.citation.set(citations[0])
+      })
     );
   }
 }

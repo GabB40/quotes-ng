@@ -12,9 +12,12 @@ import { Citation } from './citation.interface';
 export class AppComponent {
   private citationService = inject(CitationService);
   citation = this.citationService.citation
-  title = this.citationService.citation;
 
   ngOnInit() {
     this.citationService.getRandomCitations().subscribe();
+  }
+
+  nextCitation() {
+    // TODO 
   }
 }
