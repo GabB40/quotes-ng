@@ -30,8 +30,8 @@ jobs:
       #   run: npm run lint
       # - name: Format
       #   run: npm run format
-      # - name: NPM build Angular Production
-      #   run: npm run build:prod
+      - name: NPM build Angular Production
+        run: npm run build:prod
       # - name: Test
       #   run: npm run test:ci
       # - name: Test coverage
