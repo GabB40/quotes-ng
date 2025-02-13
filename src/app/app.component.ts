@@ -18,6 +18,6 @@ export class AppComponent {
   }
 
   nextCitation() {
-    // TODO 
+    // TODO
   }
 }
