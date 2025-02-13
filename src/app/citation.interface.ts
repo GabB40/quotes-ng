@@ -1,5 +1,4 @@
 export interface Citation {
-    q: string;
-    a: string;
-    h: string;
+    quote: string;
+    author: string;
 }

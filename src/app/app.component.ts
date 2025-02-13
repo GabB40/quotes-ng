@@ -1,7 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CitationService } from './citation.service';
-import { Citation } from './citation.interface';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +13,6 @@ export class AppComponent {
   citation = this.citationService.citation
 
   ngOnInit() {
-    this.citationService.getRandomCitations().subscribe();
-  }
-
-  nextCitation() {
-    // TODO
+    this.citationService.getRandomCitation();
   }
 }

@@ -1,7 +1,7 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { Citation } from './citation.interface';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Injectable, inject, signal } from '@angular/core';
+import { map, tap } from 'rxjs';
+import { Citation } from './citation.interface';
 
 
 @Injectable({
@@ -9,20 +9,14 @@ import { Observable, tap } from 'rxjs';
 })
 export class CitationService {
   private http = inject(HttpClient);
-  defaultCitation: Citation = {
-    q: "Tout vient à point à qui sait attendre",
-    a: "François Rabelais",
-    h: "string"
-  }
-  citation = signal<Citation>(this.defaultCitation)
-  readonly url = 'https://zenquotes.io/api/random';
+  citation$ = signal<Citation | null>(null)
+  readonly url = 'https://dummyjson.com/quotes/random';
 
-  getRandomCitations(): Observable<Citation[]> {
-    return this.http.get<Citation[]>(this.url).pipe(
-      tap(citations => {
-        console.log("citations", citations)
-        this.citation.set(citations[0])
-      })
-    );
+  get citation() {
+    return this.citation$.asReadonly();
+  }
+  getRandomCitation(): void {
+    this.http.get<Citation>(this.url)
+    .subscribe(response => this.citation$.set(response));
   }
 }

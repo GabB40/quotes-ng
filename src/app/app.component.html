@@ -1,8 +1,8 @@
 <div class="main">
   <div class="container">
-    <blockquote class="quote">« {{ citation().q }} »</blockquote>
-    <p class="author">- {{ citation().a }}</p>
+    <blockquote class="quote"><q>{{ citation()?.quote ?? "..." }}</q></blockquote>
+    <p class="author">- {{ citation()?.author ?? "..." }}</p>
   </div>
-  <button class="btn" (click)="nextCitation()">Next Proverb</button>
+  <button class="btn" (click)="ngOnInit()">Next Quote</button>
 </div>
 <router-outlet/>
