@@ -16,6 +16,7 @@ server {
     listen       [::]:80;
     server_name  _;
     root         /var/www/html/citations/browser;
+    index index.html index.htm index.nginx-debian.html;
     location / {
             try_files $uri $uri/ /index.html;
     }
@@ -26,4 +27,6 @@ server {
 
 NB: this commands can be put in the boostrap file of the instance (`sudo` is not required then)
 
+## add a Domain Name and HTTPS 
+see [this doc sheet](https://docs.google.com/document/d/153xiwPDP9nRiOI_pdhIQ2f63YyabFE8UJw6_kmPEiAw/edit?tab=t.0) or [this video](https://www.youtube.com/watch?v=lXUzMjCZvJY)
 
