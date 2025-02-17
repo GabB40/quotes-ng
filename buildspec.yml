@@ -5,6 +5,7 @@ env:
     CAHE_CONTROL: "86400"
     S_BUCKET: "{{s3_bucket_url}}"
     BUILD_FOLDER: "dist"
+
 phases:
   install:
     runtime-versions:
@@ -17,8 +18,9 @@ phases:
     commands:
       - echo building application
       - ng build
-  artifacts:
-    files:
-      - "**/*"
-    base-directory: "dist*"
-    discard-paths: yes
+      
+artifacts:
+  files:
+    - "**/*"
+  base-directory: "dist*"
+  discard-paths: yes
