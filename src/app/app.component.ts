@@ -12,6 +12,7 @@ import { CitationService } from './citation.service';
 export class AppComponent {
   private citationService = inject(CitationService);
   citation = this.citationService.citation
+  isRequesting = this.citationService.isRequesting
 
   ngOnInit() {
     this.citationService.getRandomCitation()
