@@ -1,6 +1,6 @@
 <div class="main">
   <div class="container">
-    <blockquote class="quote"><q>{{ citation()?.quote ?? "..." }}</q></blockquote>
+    <blockquote class="quote"><q>{{ citation()?.translated_quote ?? "..." }}</q></blockquote>
     <p class="author">- {{ citation()?.author ?? "..." }}</p>
   </div>
   <button class="btn" (click)="ngOnInit()">Next Quote</button>

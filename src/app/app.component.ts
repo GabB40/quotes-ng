@@ -1,3 +1,4 @@
+import { tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CitationService } from './citation.service';
@@ -13,6 +14,6 @@ export class AppComponent {
   citation = this.citationService.citation
 
   ngOnInit() {
-    this.citationService.getRandomCitation();
+    this.citationService.getRandomCitation()
   }
 }
