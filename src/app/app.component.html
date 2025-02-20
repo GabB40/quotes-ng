@@ -1,12 +1,14 @@
 <div class="main">
-  <div class="container">
-    @if (isRequesting()) {
-      <div class="loader"></div> 
+    @if (isLoading()) {
+      <div class="loader"></div>
+    } @else if (errorMessage()) {
+      <div class="container error">Une erreur est survenue: <strong>'{{ errorMessage() }}'</strong></div>
     } @else {
-      <blockquote class="quote"><q>{{ citation()?.translated_quote ?? "..." }}</q></blockquote>
-      <p class="author">- {{ citation()?.author ?? "..." }}</p>
+      <div class="container">
+        <blockquote class="quote"><q>{{ randomCitation()?.translated_quote ?? "..." }}</q></blockquote>
+        <p class="author">- {{ randomCitation()?.author ?? "..." }}</p>
+      </div>
+      <button class="btn" (click)="getNewRandomCitation()">Next Quote</button>
     }
-  </div>
-  <button class="btn" (click)="ngOnInit()">Next Quote</button>
 </div>
-<router-outlet/>
+<router-outlet />

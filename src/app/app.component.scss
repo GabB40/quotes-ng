@@ -19,6 +19,10 @@
   max-width: 800px;
   height: auto;
 }
+.container.error {
+  background: rgba(250, 135, 135, 0.8);
+  color: rgba(150, 20, 20, 0.8);
+}
 .btn {
   margin-top: 15px;
   padding: 10px 16px;
@@ -65,6 +69,10 @@
   animation: spin 1s linear infinite;
 }
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

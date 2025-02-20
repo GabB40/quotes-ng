@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, computed, effect, inject } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { delay } from 'rxjs';
 import { Citation } from './citation.interface';
-import { concatMap, delay, of, tap } from 'rxjs';
 
 
 @Injectable({
@@ -9,37 +10,26 @@ import { concatMap, delay, of, tap } from 'rxjs';
 })
 export class CitationService {
   private http = inject(HttpClient);
-  citation$ = signal<Citation | null>(null)
-  isRequesting$ = signal<boolean>(true)
-  readonly url = 'https://mw965ywr2j.execute-api.eu-west-3.amazonaws.com/dev/citation'; // url custom Lambda via API Gateway
+  private url = 'https://mw965ywr2j.execute-api.eu-west-3.amazonaws.com/dev/citation'; // url custom Lambda via API Gateway
 
-  get citation() {
-    return this.citation$.asReadonly();
-  }
-
-  get isRequesting() {
-    return this.isRequesting$.asReadonly();
-  }
-
-  getRandomCitation(): void {
-    this.http.get<Citation>(this.url).pipe(
-      tap(response => {
-        this.isRequesting$.set(true)
-        return response
-      }),
-      // concatMap(response => of(response).pipe(delay(800))) // pour ajouter délai
+  private randomCitationResource = rxResource({
+    loader: () => this.http.get<Citation>(this.url).pipe(
+      // delay(500) //ajout délai pour test spinner
     )
-    .subscribe({
-      next: response => this.citation$.set(response),
-      error: error => {
-        console.error("ERROR: ", error);
-        this.citation$.set({
-          "original_quote": "",
-          "translated_quote": `Une erreur est survenue: '${error.error.message}'`,
-          "author": "Gab"
-        })
-      },
-      complete: () => this.isRequesting$.set(false)
-    });
-  }
+  });
+
+  randomCitation = computed(() => this.randomCitationResource.value());
+  getNewRandomCitation = () => this.randomCitationResource.reload();
+
+  isLoading = this.randomCitationResource.isLoading;
+
+  // gestion des éventuelles erreurs
+  private error = this.randomCitationResource.error;
+  errorMessage = computed(() => {
+    const httpError = this.error() as HttpErrorResponse;
+    return httpError ? httpError?.error.message ?? "erreur inconnue" : null;
+  })
+  private logError = effect(() => {
+    if (this.error()) console.error("ERROR", this.error());
+  })
 }
