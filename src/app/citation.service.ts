@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, effect, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { delay } from 'rxjs';
@@ -11,9 +11,13 @@ import { Citation } from './citation.interface';
 export class CitationService {
   private http = inject(HttpClient);
   private url = 'https://mw965ywr2j.execute-api.eu-west-3.amazonaws.com/dev/citation'; // url custom Lambda via API Gateway
-
+  // pour l'ajout d'une API KEY, après sa création dans la console API GATEWAY, il faut créer un 'usage plan' et l'associer à la clé puis à l'API dans 'Associated stages'
+  private httpHeader: HttpHeaders = new HttpHeaders({
+    "x-api-key": "Yh2dpc1iW2aeKzDLOoicj6Wea4febYpW2dgyKlSj"
+  })
+  
   private randomCitationResource = rxResource({
-    loader: () => this.http.get<Citation>(this.url).pipe(
+    loader: () => this.http.get<Citation>(this.url, { headers: this.httpHeader }).pipe(
       // delay(500) //ajout délai pour test spinner
     )
   });
