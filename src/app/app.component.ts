@@ -1,4 +1,3 @@
-import { tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CitationService } from './citation.service';
